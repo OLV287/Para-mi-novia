@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Carta de Amor</title>
+    <!-- Enlace a Tailwind CSS para estilos modernos y responsivos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Configuración de la fuente Inter para todo el cuerpo */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilos personalizados para la fuente del título, si está disponible */
+        .font-brush-script {
+            font-family: 'Brush Script MT', cursive;
+        }
+        /* Estilos para ocultar el contenido de la carta inicialmente */
+        .hidden-content {
+            display: none;
+        }
+        /* Animación para los corazones */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .animate-pulse {
+            animation: pulse 1.5s infinite alternate;
+        }
+        .animate-pulse-delay {
+            animation: pulse 1.5s infinite alternate;
+            animation-delay: 0.75s; /* Retraso para que el segundo corazón pulse de forma diferente */
+        }
+    </style>
+</head>
+<body class="bg-black flex items-center justify-center min-h-screen p-4">
+
+    <!-- Ventana de contraseña -->
+    <div id="password-prompt" class="absolute inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-xl shadow-lg text-center max-w-sm w-full">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Acceso Restringido</h2>
+            <p class="text-gray-600 mb-4">Por favor, ingresa tu nombre en minusculas.</p>
+            <input type="password" id="password-input" class="w-full p-3 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="Contraseña">
+            <button id="submit-password" class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 px-6 rounded-md transition duration-300 ease-in-out">Entrar</button>
+            <p id="error-message" class="text-red-500 mt-4 hidden">Contraseña incorrecta. Inténtalo de nuevo.</p>
+        </div>
+    </div>
+
+    <!-- Contenedor principal de la carta (inicialmente oculto) -->
+    <div id="love-letter-content" class="relative bg-white rounded-xl shadow-lg p-8 md:p-12 max-w-2xl w-full text-center leading-relaxed overflow-hidden hidden-content">
+        <!-- Corazón decorativo superior derecho -->
+        <span class="absolute top-4 right-4 text-pink-500 text-5xl animate-pulse">&#10084;&#65039;</span>
+        <!-- Corazón decorativo inferior izquierdo -->
+        <span class="absolute bottom-4 left-4 text-pink-500 text-5xl animate-pulse-delay">&#10084;&#65039;</span>
+
+        <!-- Título de la carta -->
+        <h1 class="text-pink-700 font-brush-script text-5xl md:text-6xl mb-6">Mi Amor,</h1>
+
+        <!-- Párrafos de la carta -->
+        <p class="text-gray-700 text-lg mb-4">Hoy siento la necesidad de decirte lo mucho que significas para mí. Cada día que pasa, 
+		mi amor por ti crece más fuerte, como las flores que se abren con la luz del sol. 
+		Tu sonrisa ilumina mis días más oscuros, y tu abrazo es mi refugio más seguro.</p>
+		
+        <p class="text-gray-700 text-lg mb-4">Recuerdo la primera vez que te vi, y aún hoy siento esa misma chispa, 
+		esa misma emoción. Tu sonrisa ilumina mis días, tu risa es la 
+		melodía más dulce, y tus ojos… en ellos encuentro la paz y la aventura al mismo tiempo.</p>
+		
+        <p class="text-gray-700 text-lg mb-4">Gracias por cada momento, por cada risa compartida, por 
+		cada abrazo que calma cualquier tormenta. Gracias por ser mi compañera, mi confidente, 
+		mi mejor amiga y el amor de mi vida. Me inspiras a ser una mejor persona y a enfrentar 
+		cada desafío con una sonrisa, sabiendo que te tengo a mi lado.</p>
+		
+        <p class="text-gray-700 text-lg mb-6">No hay palabras suficientes para expresar lo mucho que 
+		te amo y lo agradecido que estoy por tenerte en mi vida. Eres mi sueño hecho realidad, mi calma 
+		en medio del caos y la persona con la que quiero compartir cada amanecer y cada anochecer.</p>
+
+        <!-- Firma de la carta -->
+        <p class="text-pink-600 font-bold italic text-xl md:text-2xl mt-8">Siempre tuyo,<br>[Elquis]</p>
+    </div>
+
+    <script>
+        // Define la contraseña aquí
+        const CORRECT_PASSWORD = "rosmery"; // Puedes cambiar esta contraseña
+
+        // Obtener elementos del DOM
+        const passwordPrompt = document.getElementById('password-prompt');
+        const passwordInput = document.getElementById('password-input');
+        const submitButton = document.getElementById('submit-password');
+        const errorMessage = document.getElementById('error-message');
+        const loveLetterContent = document.getElementById('love-letter-content');
+
+        // Función para verificar la contraseña
+        function checkPassword() {
+            if (passwordInput.value === CORRECT_PASSWORD) {
+                passwordPrompt.classList.add('hidden'); // Oculta la ventana de contraseña
+                loveLetterContent.classList.remove('hidden-content'); // Muestra el contenido de la carta
+            } else {
+                errorMessage.classList.remove('hidden'); // Muestra el mensaje de error
+                passwordInput.value = ''; // Limpia el campo de contraseña
+                passwordInput.focus(); // Vuelve a enfocar el campo
+            }
+        }
+
+        // Event listener para el botón de "Entrar"
+        submitButton.addEventListener('click', checkPassword);
+
+        // Event listener para la tecla "Enter" en el campo de contraseña
+        passwordInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+</html>
